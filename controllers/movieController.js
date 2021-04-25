@@ -4,9 +4,7 @@ const Movie = require('../models/Movie') ;
 
 // NOT SURE IF REQUIRED AS A METHOD  
 // FOR testing purposes 
-const getAllMovies = async(req,res,next)=>{
-    
-    
+const getAllMovies = async(req,res,next)=>{ 
     try {
 
     const movies = await Movie.find({}) ; 
@@ -46,6 +44,7 @@ const getMovie =async (req,res,next)=>{
         next(error) ; 
     }
 }
+
 const createMovie = async(req,res,next)=>{
     const body =req.body
     try{
@@ -63,8 +62,6 @@ const createMovie = async(req,res,next)=>{
     {
         next(err) ; 
     }
-
-
 }
 
 const editMovie = async(req,res,next)=>{
@@ -103,8 +100,22 @@ const deleteMovie = async(req,res,next)=>{
         next(error)
     }
 }
+const populateGenre= async(req,res,next)=>{
+    const id = req.params.id ; 
+    try{
+        const MovieGenre = await Movie.findById(id).populate('Genre') ; 
+        res.status(200).json({
+            success: true , 
+            MovieGenre
+        })
+    }
+    catch(error)
+    {
+        next(error) ; 
+    }
+}
 
 
 module.exports={
-    getAllMovies,createMovie,getMovie,editMovie,deleteMovie
+    getAllMovies,createMovie,getMovie,editMovie,deleteMovie,populateGenre
 }
