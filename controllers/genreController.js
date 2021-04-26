@@ -1,9 +1,51 @@
-const { catch, catch } = require('../config/db');
 const ErrorHandler = require('../helpers/errorHandler');
 
 const Genre = require('../models/Genre') ; 
+const Movie = require('../models/Movie');
+
+const getAllGenres = async (req,res,next)=>{
 
 
+    try {
+        const genres = await Genre.find({}) ; 
+        if (!genres)
+        {
+            throw new ErrorHandler(404,'No genres found in the database ') ; 
+
+        }
+        res.status(200).json({
+            success: true  ,
+            message :'Here is a list of genres found in database  ' , 
+            genres  
+        })
+    }
+    catch(err)
+    {
+            next(err) ; 
+    }
+
+}
+
+const getGenre = async (req,res,next)=>{
+    const id= req.params.id ; 
+    try {
+        const genreFound = await Genre.findById(id) ; 
+        if (!genreFound)
+        {
+            throw new ErrorHandler(404,'There is no genre with this id ') ; 
+
+        }
+        res.status(200).json({
+            success: true  ,
+            genreFound
+        })
+    }
+    catch(err)
+    {
+            next(err) ; 
+    }
+
+}
 const createGenre = async (req,res,next)=>{
         const genre = req.body ; 
 
@@ -55,6 +97,11 @@ const deleteGenre = async(req,res,next)=>{
         {
             throw new ErrorHandler(404,'There is no such genre with id ') ;  
         }
+        if (!deletedGenre)
+        {
+            throw new ErrorHandler(500, 'Problem updating Movies with deleted genre ')
+        } 
+        const movieUpdate = await Movie.findByIdAndUpdate(deletedGenre.movieId, {$pullAll:{movieInfos :{genre :id}}}) ; 
         res.status(200).json({
             success: true, 
             message : 'Genre deleted with success',
@@ -68,21 +115,8 @@ const deleteGenre = async(req,res,next)=>{
     }
     
 }
-const populateMovie= async(req,res,next)=>{
-    const id = req.params.id ; 
-    try{
-        const GenreOfMovie = await Genre.findById(id).populate('Movie') ; 
-        res.status(200).json({
-            success: true , 
-            GenreOfMovie
-        })
-    }
-    catch(error)
-    {
-        next(error) ; 
-    }
-}
 
-module.exports{
-    deleteGenre,editGenre,createGenre,populateMovie
+
+module.exports = {
+    deleteGenre,editGenre,createGenre,getAllGenres,getGenre 
 }
