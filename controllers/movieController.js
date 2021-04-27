@@ -28,7 +28,7 @@ const getAllMovies = async(req,res,next)=>{
 }
 
 // Fetch one movie by name (FOR TESTING)
-const getMovie =async (req,res,next)=>{
+const getMovieByName =async (req,res,next)=>{
     const movieTitle = req.body.original_title 
     try {
         const movie = await Movie.findOne({movieInfos:{original_title: movieTitle}}) ; 
@@ -51,19 +51,21 @@ const createMovie = async(req,res,next)=>{
     const body =req.body
     try{
         const newMovie = await Movie.create(body) ;
-        
-        
+        const movieGenres = newMovie.movieInfos.genres ; 
         if (!newMovie){
             throw new ErrorHandler(500 , 'Movie has not been created ')
         } 
-        newMovie.movieInfos.genres.forEach(el=>{
-            const GenreUpdate =  Genre.findByIdAndUpdate(el, {$set:{movieId :newMovie._id}}) ; 
-        })
-       
-        
-        if (!GenreUpdate){
-            throw new ErrorHandler(500,'ERROR WHILE UPDATE OF GENRE ')
-        }
+        movieGenres.map(async genre=>{
+           try{
+            const sweet = await Genre.findByIdAndUpdate(genre,{$addToSet : {movieId:newMovie._id}})
+           }
+           
+            catch(err){
+                console.log(err)
+            }
+          
+       }) 
+      
         res.status(200).json({
             success: true , 
             message : 'Movie creation has been successful' , 
@@ -84,22 +86,25 @@ const editMovie = async(req,res,next)=>{
     try{
         const movie = await Movie.findById(id) ; 
         const editedMovie = await Movie.findByIdAndUpdate(id ,{$set:body},{new:true}) ; 
+       
         if (!editedMovie){
             throw new ErrorHandler(404,'There is no such movie in the database ')
         }
-        editedMovie.movieInfos.genres.forEach(el=>{
-            const genreFound = Genre.findById(el) ; 
-            if (!genreFound)
-            {
+        console.log(movie.movieInfos.genres) ; 
 
-            }
-            const GenreUpdate =  Genre.findByIdAndUpdate(el, {$set:{movieId :id}}) ; 
-        })
-        
-        if(!Genreupdate)
-        {
-            throw new ErrorHandler("update of genre failed ")
-        }
+       const ancientGenres = movie.movieInfos.genres ; 
+       const newGenres = editedMovie.movieInfos.genres ; 
+       
+       
+        ancientGenres.map(async element => {
+           !newGenres.includes(element) && await Genre.findByIdAndUpdate(element,{$pull:{movieId:id}}).exec();
+       })
+    
+   
+       newGenres.map(async element=>{
+           !(ancientGenres.includes(element))  &&  await Genre.findByIdAndUpdate(element,{$push:{movieId: id }})
+       })
+
         res.status(200).json({
             success: true , 
             message : 'Movie edited successfully '  , 
@@ -118,7 +123,11 @@ const deleteMovie = async(req,res,next)=>{
             if(!deletedMovie) {
                 throw new ErrorHandler(404,'There is no movie to delete in the first place')
             }
-            const GenreUpdate = await Genre.findByIdAndUpdate(deletedMovie.movieInfos.genres , {$pullAll:{movieId :id}}) ; 
+
+                deletedMovie.movieInfos.genres.map(async element=>{
+                    const y = await Genre.findByIdAndUpdate(element,{$pull:{movieId:id}})
+                })
+            
             res.status(200).json({
                 success: true , 
                 message : 'Movie deleted successfully ' , 
@@ -129,7 +138,13 @@ const deleteMovie = async(req,res,next)=>{
         next(error)
     }
 }
+const getMoviesByGenre=(req,res,next)=>{
+
+}
+const getMoviesbyId=(req,res,next)=>{
+
+}
 
 module.exports={
-    getAllMovies,createMovie,getMovie,editMovie,deleteMovie
+    getAllMovies,createMovie,getMovieByName,editMovie,deleteMovie,getMoviesbyId,getMoviesByGenre
 }

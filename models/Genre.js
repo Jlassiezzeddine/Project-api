@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const genreSchema = new mongoose.Schema({
-  name: { type: String, required: [true, "a Genre must have a name"] },
+  name: { type: String, required: [true, "a Genre must have a name"] , unique: true  },
   count: Number,
   movieId :[{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }]
 });

@@ -5,7 +5,6 @@ const {getGenre,getAllGenres,editGenre,createGenre,deleteGenre} = require('../co
 //
 //Should be public for Admin/MovieTheater ???
 
-
 // Find all Genres 
 router.get('/',getAllGenres) ; 
 //CreateGenre 

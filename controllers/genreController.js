@@ -51,11 +51,6 @@ const createGenre = async (req,res,next)=>{
 
     try {
         const newGenre = await Genre.create(genre) ; 
-        if (!newGenre)
-        {
-            throw new ErrorHandler(500,'Genre creation failed !') ; 
-
-        }
         res.status(200).json({
             success: true  ,
             message :'Genre creation was successfull ' , 
