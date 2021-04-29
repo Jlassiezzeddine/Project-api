@@ -147,7 +147,7 @@ const getScreeningById = async (req, res, next) => {
   }
 };
 //Get screening by movie
-const getScreeningByMovie = async (req, res, next) => {
+const getScreeningsByMovie = async (req, res, next) => {
   const movieId = req.params.movieId;
 
   try {
@@ -171,5 +171,5 @@ module.exports = {
   publishScreening,
   getAllScreenings,
   getScreeningById,
-  getScreeningByMovie,
+  getScreeningsByMovie,
 };

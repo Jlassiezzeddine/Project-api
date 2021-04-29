@@ -1,9 +1,7 @@
+
 const router = require('express').Router() ; 
 const {getGenre,getAllGenres,editGenre,createGenre,deleteGenre} = require('../controllers/genreController') ; 
 
-// Routes for Genre 
-//
-//Should be public for Admin/MovieTheater ???
 
 // Find all Genres 
 router.get('/',getAllGenres) ; 
@@ -16,6 +14,10 @@ router.delete('/:id',deleteGenre) ;
 //edit specific genre ; 
 router.patch('/:id' , editGenre)
 
+router.patch("/:id/add-movie/:movieId", genreController.pushMovieId);
+router.patch("/:id/remove-movie/:movieId", genreController.pullMovieId);
 
+//to test
+router.get("/test/:id", genreController.populateMovie);
 
-module.exports= router ; 
+module.exports = router;

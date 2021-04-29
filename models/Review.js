@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
-  customerID: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
+  customerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Customer",
+    required: true,
+  },
   movieId: { type: mongoose.Schema.Types.ObjectId, ref: "Movie" },
   theaterId: { type: mongoose.Schema.Types.ObjectId, ref: "Theater" },
   comment: {
@@ -15,5 +19,5 @@ const reviewSchema = new mongoose.Schema({
     required: [true, "A review must have a rating"],
   },
 });
-
-module.exports = mongoose.model("Review", reviewSchema);
+const Review = mongoose.model("Review", reviewSchema);
+module.exports = Review;

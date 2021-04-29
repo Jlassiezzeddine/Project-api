@@ -13,7 +13,7 @@ router.delete("/:id", screeningController.deleteScreening);
 router.get("/all", screeningController.getAllScreenings);
 //Get Screening by id
 router.get("/:id", screeningController.getScreeningById);
-//Get screening by movie
-router.get("/movie/:movieId", screeningController.getScreeningByMovie);
+//Get screenings by movie
+router.get("/movie/:movieId", screeningController.getScreeningsByMovie);
 
 module.exports = router;
