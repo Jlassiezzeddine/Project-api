@@ -1,6 +1,8 @@
 const ErrorHandler= require('../helpers/errorHandler') ; 
 const Movie = require('../models/Movie') ; 
 const Genre = require('../models/Genre') ; 
+const { response } = require('express');
+var _ = require('lodash');
 
 
 // NOT SURE IF REQUIRED AS A METHOD  
@@ -138,10 +140,58 @@ const deleteMovie = async(req,res,next)=>{
         next(error)
     }
 }
-const getMoviesByGenre=(req,res,next)=>{
+const getMoviesByGenre=async(req,res,next)=>{
+    const genresIDS = req.body.id ;
+    let x = []
+    try{
+        Genre.find().where('_id').in(genresIDS).exec().then(response=>{
+            const movies = response.map(element=>element.movieId) ; 
+            for(let i = 0 ; i<movies.length ; i++)
+            {   
+                x=[...x,...movies[i]]; 
+            }
+            const y = x.sort().map((element,index)=> {
+                if(!x.indexOf(element,index+1)==index)
+                {
+                    return null ; 
+                }
+                return element 
+            }).filter(el=> el!=null) ;  ; 
+           
+           
+                    res.status(200).json({
+                        success: true , 
+                        movies : y , 
+                    })
+        })
+           
+          
+    }
+    catch(err){
+        next(err)
+    }
+   
+
 
 }
-const getMoviesbyId=(req,res,next)=>{
+const getMoviesbyId=async(req,res,next)=>{   
+    const id = req.body.params ; 
+
+    try {
+        const movie = await Movie.findById(id) ;
+        if (!movie)
+        {
+            throw new ErrorHandler(404, ' There is no movie with this id in the database ')
+        } 
+        res.status(200).json({
+            success: true , 
+            movie , 
+        })
+    }
+    catch (error)
+    {
+
+    }
 
 }
 

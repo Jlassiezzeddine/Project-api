@@ -6,9 +6,12 @@ const {createMovie,deleteMovie,editMovie,getAllMovies,getMovieByName,getMoviesby
 //
 //Public 
 router.get('/',getAllMovies) ; 
+
 router.get('/:id',getMoviesbyId);
-router.get('/',getMoviesByGenre)
-router.get('/',getMovieByName)
+
+router.get('/',getMovieByName); 
+// /movie/genre
+router.get('/whatever/genre',getMoviesByGenre)
 router.post('/createMovie',createMovie); 
 router.patch('/:id',editMovie) ; 
 router.delete('/:id',deleteMovie) ; 
