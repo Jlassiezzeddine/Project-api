@@ -160,7 +160,7 @@ exports.logoutTheater = (req, res, next) => {
   }
 };
 
-const sendToken = (user, statusCode, res) => {
+exports.sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
   res.status(statusCode).cookie("token", token, { httpOnly: true }).json({
     success: true,
@@ -168,7 +168,7 @@ const sendToken = (user, statusCode, res) => {
   });
 };
 
-const unSetToken = (statusCode, res) => {
+exports.unSetToken = (statusCode, res) => {
   res.status(statusCode).cookie("token", "", { httpOnly: true }).json({
     success: true,
     message: "logged out with success",
