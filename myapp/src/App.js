@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import MyForm from './myComponents/Forms'
+import {MyForm} from './myComponents/Forms'
 import {
   BrowserRouter as Router,
   Switch,
