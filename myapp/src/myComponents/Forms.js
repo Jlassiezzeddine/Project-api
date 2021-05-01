@@ -8,7 +8,7 @@ const MyForm = ({register})=>{
     return(
         <div>
         <Formik initialValues ={{userName:'' ,firstName:'', lastName: '' , email:'',password:''}} onSubmit={async({email,password})=>{
-            if(register)
+            if(!register)
             {
                 axios.post('http://localhost:7200/api/admins/register',{email,password}).then(res=>console.log(res)).catch(err=> console.log(err))
 
@@ -29,7 +29,7 @@ const MyForm = ({register})=>{
                         <div>
                         <Field  placeholder = 'password' type='input' name ='password' as={TextField} />
                         </div>
-                        {register &&
+                        {!register &&
                         <>
                          <div>
                          <Field  placeholder ='userName' type='input' name ='userName' as={TextField} />
