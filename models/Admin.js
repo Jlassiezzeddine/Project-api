@@ -71,15 +71,17 @@ adminSchema.methods.getSignedToken = function () {
 //Generate
 
 adminSchema.methods.getResetPasswordToken = function () {
-  const resetToken = crypto.randomBytes(20).toString("hex");
+  let resetToken = crypto.randomBytes(20).toString("hex");
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
+    console.log(this.resetPasswordToken)
 
   this.resetPasswordExpire = Date.now() + 10 * (60 * 1000);
+  this.save() ; 
   return resetToken;
 };
 
 const Admin = model("Admin", adminSchema);
-module.exports = Admin;
+module.exports = Admin ; 

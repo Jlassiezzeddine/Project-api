@@ -4,6 +4,13 @@ const Theater = require("../models/Theater");
 const ErrorHandler = require("../helpers/errorHandler");
 
 //Admin Authentication
+const sendToken = (user, statusCode, res) => {
+  const token = user.getSignedToken();
+  res.status(statusCode).cookie("token", token, { httpOnly: true }).json({
+    success: true,
+    message: "Signed in with success",
+  });
+};
 exports.registerAdmin = async (req, res, next) => {
   const { firstName, lastName, userName, email, password } = req.body;
 
@@ -160,15 +167,9 @@ exports.logoutTheater = (req, res, next) => {
   }
 };
 
-exports.sendToken = (user, statusCode, res) => {
-  const token = user.getSignedToken();
-  res.status(statusCode).cookie("token", token, { httpOnly: true }).json({
-    success: true,
-    message: "Signed in with success",
-  });
-};
 
-exports.unSetToken = (statusCode, res) => {
+
+const unSetToken = (statusCode, res) => {
   res.status(statusCode).cookie("token", "", { httpOnly: true }).json({
     success: true,
     message: "logged out with success",
