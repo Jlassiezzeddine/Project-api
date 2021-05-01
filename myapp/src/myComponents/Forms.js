@@ -7,10 +7,10 @@ import axios from 'axios' ;
 const MyForm = ({register})=>{
     return(
         <div>
-        <Formik initialValues ={{userName:'' ,firstName:'', lastName: '' , email:'',password:''}} onSubmit={async({email,password})=>{
+        <Formik initialValues ={{userName:'' ,firstName:'', lastName: '' , email:'',password:''}} onSubmit={async({email,password,userName,firstName,lastName})=>{
             if(!register)
             {
-                axios.post('http://localhost:7200/api/admins/register',{email,password}).then(res=>console.log(res)).catch(err=> console.log(err))
+                axios.post('http://localhost:7200/api/admins/register',{email,password,userName,lastName,firstName}).then(res=>console.log(res)).catch(err=> console.log(err))
 
             }else {
                 axios.post('http://localhost:7200/api/admins/login',{email,password}).then(res=>console.log(res)).catch(err=> console.log(err))
