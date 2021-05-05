@@ -1,29 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
-import {MyForm} from './myComponents/Forms'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import React from "react";
+import "./App.css";
+import { Switch, Route } from "react-router-dom";
+import homePage from "./pages/Home/Home";
+import Navigation from "./Components/Navigation/Navigation";
+import RegistrationForm from "./pages/Registration/RegistrationForm";
+import loginForm from "./pages/Login/loginForm";
+import Account from "./pages/Account/Account";
+import Reservations from "./pages/Reservations/Reservations";
+import Favorites from "./pages/Favorites/Favorites";
 
 function App() {
+  const [auth, setAuth] = React.useState(false);
+  const [location, setLocation] = React.useState("Tunis");
   return (
-    <Switch>
-       
-        <Route path = '/home'>
-        <div>Home Page</div>
-        </Route>
-        <Route path ='/register'>
-          <MyForm/>   
-        </Route>
-        <Route path ='/login'>
-          <MyForm register ={true}/>
-        </Route>
-    
- 
-    </Switch>
-   
+    <>
+      <Navigation
+        auth={auth}
+        setAuth={setAuth}
+        setLocation={setLocation}
+        location={location}
+      />
+
+      <Switch>
+        <Route exact="true" path="/" component={homePage} />
+        <Route path="/register" component={RegistrationForm} />
+        <Route path="/login" component={loginForm} />
+        <Route path="/my-account" component={Account} />
+        <Route path="/my-reservations" component={Reservations} />
+        <Route path="/my-favorites" component={Favorites} />
+      </Switch>
+    </>
   );
 }
 
