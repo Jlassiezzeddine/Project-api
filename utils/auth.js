@@ -177,7 +177,7 @@ sendToken = (user, statusCode, res) => {
 };
 
 
-unSetToken = (statusCode, res) => {
+const unSetToken = (statusCode, res) => {
   res.status(statusCode).cookie("token", "", { httpOnly: true }).json({
     success: true,
     message: "logged out with success",
