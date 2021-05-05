@@ -13,8 +13,6 @@ const HeroCarousel = () => {
       pagination={{
         clickable: true,
       }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
     >
       <SwiperSlide style={{ width: "80vw" }}>
         <HeroCarouselItem />

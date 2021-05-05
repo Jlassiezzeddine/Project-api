@@ -22,7 +22,7 @@ function App() {
       />
 
       <Switch>
-        <Route exact="true" path="/" component={homePage} />
+        <Route exact path="/" component={homePage} />
         <Route path="/register" component={RegistrationForm} />
         <Route path="/login" component={loginForm} />
         <Route path="/my-account" component={Account} />

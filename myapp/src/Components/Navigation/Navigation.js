@@ -415,9 +415,7 @@ const Navigation = ({ location, setLocation, auth, setAuth }) => {
                       </IconButton>
                     </>
                   ) : (
-                    <Button variant="secondary" onClick={handleSignIn}>
-                      Sign In
-                    </Button>
+                    <Button onClick={handleSignIn}>Sign In</Button>
                   )}
                 </Box>
               </Grid>
