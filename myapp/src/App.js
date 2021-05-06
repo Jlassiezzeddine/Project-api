@@ -9,7 +9,6 @@ import Favorites from "./pages/Favorites/Favorites";
 import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
-
 function App() {
   const [auth, setAuth] = React.useState(false);
   const [location, setLocation] = React.useState("Tunis");

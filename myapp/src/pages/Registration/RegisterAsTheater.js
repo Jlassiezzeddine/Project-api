@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
-import { Button, Container, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
 import * as Yup from "yup";
 import { Redirect } from "react-router-dom";
 import {makeStyles} from "@material-ui/core"
 import { GoogleLogin } from "react-google-login";
-import {Typography} from '@material-ui/core'
+import {Typography,Container} from '@material-ui/core'
 
 const SignupSchema = Yup.object().shape({
   userName: Yup.string().min(4, "tooShort").max(50).required("Required"),
@@ -33,7 +33,7 @@ const useStyles= makeStyles((theme)=>({
 )
 
 
-const RegistrationForm = () => {
+const RegistrationFormTheater = () => {
   const [loggedIn , setLoggedIn] = useState(false) ; 
   const classes = useStyles() ; 
   const handleLogin = (data)=>{
@@ -44,7 +44,7 @@ const RegistrationForm = () => {
   
   <div>
   {loggedIn && <Redirect to = '/'/>}
-      <Formik 
+  <Formik 
         initialValues={{
           userName: "",
           firstName: "",
@@ -78,7 +78,7 @@ const RegistrationForm = () => {
           <Form>
             <Container>
             <Container>
-            <Typography variant='h4'>Sign in</Typography>
+            <Typography variant='h4'>MovieTheater Sign in</Typography>
               <Field className={classes.fieldClass}
                 helperText={errors.email}
                 error={errors.email}
@@ -151,5 +151,4 @@ const RegistrationForm = () => {
     </div>
   );
 };
-
-export default RegistrationForm;
+export default RegistrationFormTheater;

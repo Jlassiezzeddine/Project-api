@@ -347,7 +347,7 @@ const Navigation = ({ location, setLocation, auth, setAuth }) => {
                   ) : (
                     <>
                       <Button onClick={handleSignIn}>Login</Button>
-                      <Button>Singup</Button>
+                      <Button>Sign Up</Button>
                     </>
                   )}
                 </Box>
