@@ -3,6 +3,9 @@ import { Formik, Field, Form } from "formik";
 import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
 import * as Yup from "yup";
+import { Redirect } from "react-router-dom";
+import {makeStyles} from "@material-ui/core"
+import { GoogleLogin } from "react-google-login";
 
 const SignupSchema = Yup.object().shape({
   userName: Yup.string().min(4, "tooShort").max(50).required("Required"),
@@ -20,11 +23,27 @@ const SignupSchema = Yup.object().shape({
     .max(15)
     .required("Required"),
 });
+const useStyles= makeStyles((theme)=>({
+  fieldClass:{
+    marginBottom: '10px'
 
-const RegistrationForm = ({ handleLogin }) => {
+}
+})
+)
+
+
+const RegistrationForm = () => {
+  const [loggedIn , setLoggedIn] = useState(false) ; 
+  const classes = useStyles() ; 
+  const handleLogin = (data)=>{
+      setLoggedIn(data) ; 
+  }
+  
   return (
-    <div>
-      <Formik
+  
+  <div>
+  {loggedIn && <Redirect to = '/'/>}
+      <Formik 
         initialValues={{
           userName: "",
           firstName: "",
@@ -57,7 +76,7 @@ const RegistrationForm = ({ handleLogin }) => {
         {({ values, errors, isSubmitting }) => (
           <Form>
             <div>
-              <Field
+              <Field className={classes.fieldClass}
                 helperText={errors.email}
                 error={errors.email}
                 placeholder="email"
@@ -68,7 +87,7 @@ const RegistrationForm = ({ handleLogin }) => {
             </div>
 
             <div>
-              <Field
+              <Field className={classes.fieldClass}
                 helperText={errors.password}
                 error={errors.password}
                 placeholder="password"
@@ -79,7 +98,7 @@ const RegistrationForm = ({ handleLogin }) => {
             </div>
 
             <div>
-              <Field
+              <Field className={classes.fieldClass}
                 helperText={errors.userName}
                 error={errors.userName}
                 placeholder="userName"
@@ -90,7 +109,7 @@ const RegistrationForm = ({ handleLogin }) => {
             </div>
 
             <div>
-              <Field
+              <Field className={classes.fieldClass}
                 helperText={errors.firstName}
                 error={errors.firstName}
                 placeholder="firstName"
@@ -101,7 +120,7 @@ const RegistrationForm = ({ handleLogin }) => {
             </div>
 
             <div>
-              <Field
+              <Field className={classes.fieldClass}
                 helperText={errors.lastName}
                 error={errors.lastName}
                 placeholder="lastName"
@@ -114,9 +133,19 @@ const RegistrationForm = ({ handleLogin }) => {
             <Button type="submit" disabled={isSubmitting}>
               Submit
             </Button>
+            <GoogleLogin
+              theme='dark'
+              clientId={process.env.REACT_APP_CLIENT_ID}
+              buttonText="Sign in with Google"
+              onSuccess={handleLogin}
+              onFailure={handleLogin}
+              cookiePolicy={"single_host_origin"}
+              disabled={false}
+            />
           </Form>
         )}
       </Formik>
+      
     </div>
   );
 };

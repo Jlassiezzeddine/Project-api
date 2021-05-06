@@ -1,6 +1,6 @@
 import { createMuiTheme } from "@material-ui/core";
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
   breakpoints: {
     values: {
       xs: 0,
@@ -37,5 +37,23 @@ const theme = createMuiTheme({
     },
   },
 });
+export const defaultTheme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1440,
+      xl: 1920,
+    },
+  },
+  
+  mixins: {
+    toolbar: {
+      minHeight: 56,
+      borderTop: "1px solid rgba(255,255,255,0.08)",
+    },
+  },
+});
 
-export default theme;
+
