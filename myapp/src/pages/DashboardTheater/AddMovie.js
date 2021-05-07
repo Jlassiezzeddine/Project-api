@@ -4,6 +4,7 @@ import Image from '../../assets/lloyd-dirks-4SLz_RCk6kQ-unsplash.jpg'
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import SimpleMenu from '../../Components/Menu'
 import { Formik, Field, Form } from "formik";
+import CheckboxesGroup from '../../Components/Form /Checkbox'
 import * as Yup from 'yup'
 
 const inputSchema = Yup.object().shape({
@@ -16,11 +17,10 @@ const inputSchema = Yup.object().shape({
 const StyledPaper = withStyles({
     root: {
       background:'#010916',
-      color:'black',
       height:'100%',
-      width: "100%",
+      width:'100%',
       display: 'flex',
-      flexDirection:'row',
+      flexDirection:'column',
       borderRadius:'0%'
       
     },
@@ -30,11 +30,13 @@ const styles =makeStyles({
         backgroundColor: '#151f2e' , 
         color: '#a7aab0', 
         width: '25%'  ,
-        paddingLeft: '4px'
+        paddingLeft: '4px',
+        margin: '10px'
     },
     label:{
         textTransform: 'capitalize'
-    }
+    },
+
 })
   
 const useStyles= makeStyles((theme)=>(
@@ -50,17 +52,16 @@ const useStyles= makeStyles((theme)=>(
            margin: '0px',
         },
         boxFirstContainer:{
-            height:'30vh',
-            width:'100%',
+            height:'40vh',
+            width: '100%',   
             backgroundImage: `url(${Image})`,
             backgroundPosition:"center",
             backgroundOrigin: "contentBox",
             backgroundSize: 'cover',
             
-            
-        },
+          },
         typographyClass:{
-            marginTop: '20px',
+        
             marginLeft: '20px',
             color: '#a7aab0',
             marginBottom: '20px'
@@ -76,7 +77,10 @@ const useStyles= makeStyles((theme)=>(
         flexRow:{
             display: 'flex' ,
             flexDirection: 'row', 
-            justifyContent: 'space-around'
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            
+
             
         },
         flexRow2:{
@@ -91,13 +95,17 @@ const useStyles= makeStyles((theme)=>(
             width:'100%',
             backgroundColor: '#151f2e' , 
             color: '#a7aab0', 
-            paddingLeft: '4px'
+            paddingLeft: '4px',
+            marginBottom:'40px'
         },
         flexColumn:{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'start',
             justifyContent: 'space-around'
+        },
+        check:{
+            width:'50%'
         }
     } 
     
@@ -112,44 +120,37 @@ const classes =useStyles() ;
 
     return(
         <>
-        <div className={classes.rootWrapper}>
         <div className={classes.boxFirstContainer}>
-        <Typography variant='h2' className={classes.typographyClass}>
-            Add New Movie
+        <Typography variant='h3' className={classes.typographyClass}>
+             Add Movie Section 
         </Typography>
         </div>
-        <div>
-       <StyledPaper variant='outlined'>
-         
-         <Typography variant='h3' className={classes.typographyClass}>
+        <StyledPaper>
+            <div className={classes.containerClass}>
+            <Typography variant='h3' className={classes.typographyClass}>
              Movie Details
         </Typography>
-        <Formik validationSchema={inputSchema}>
+            </div>
+            <div>
+            <Formik validationSchema={inputSchema}>
             
             <Form>
                 <div className={classes.flexRow}>    
         <Input placeholder='Original title' className={classe.root}></Input>
         <Input placeholder='Run time ' className={classe.root}></Input>
         <Input placeholder='Language' className={classe.root}></Input>
-             </div>
-        
-        <SimpleMenu/>
-        <div className={classes.flexRow}>
         <Input placeholder='Movie Overview'className={classe.root}></Input>
         <Input placeholder='Release Date' className={classe.root} type='date' />
         <Input placeholder='Distributor' className={classe.root}/>
+        <div>
+        <CheckboxesGroup className={classes.check}/>
         </div>
-      
-            </Form>
-        
+        </div>
+            </Form>  
         </Formik>
+            </div>
        
-       
-        </StyledPaper>
-        
-        </div>
-        <StyledPaper variant='outlined'>
-       
+       <div>
          <div className={classes.flexRow2}>
          <div className={classes.flexColumn}>
         <Typography variant='h6' className={classes.typographyClass}>
@@ -162,9 +163,10 @@ const classes =useStyles() ;
              <Input type='text' placeholder='Trailer URL' className={classes.inputClass} ></Input>
              </div>
          </div>
+         </div>
          </StyledPaper>
+        
 
-        </div>
         </>
     )
 
