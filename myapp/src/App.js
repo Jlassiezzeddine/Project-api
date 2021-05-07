@@ -9,6 +9,7 @@ import Favorites from "./pages/Favorites/Favorites";
 import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
+import MoviePage from "./pages/DashboardTheater/AddMovie";
 function App() {
   const [auth, setAuth] = React.useState(false);
   const [location, setLocation] = React.useState("Tunis");
@@ -31,6 +32,7 @@ function App() {
         <Route path="/my-account" component={Account} />
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
+        <Route path="/Theater/CreateMovie" component={MoviePage} />
       </Switch>
     </>
   );
