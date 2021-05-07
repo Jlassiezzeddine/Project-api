@@ -22,15 +22,14 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "google-auth-library": "^7.0.4",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.5",
-
     "nodemailer": "^6.6.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0"
-
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
