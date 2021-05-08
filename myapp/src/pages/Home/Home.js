@@ -1,16 +1,18 @@
 import React from "react";
 import HeroCarousel from "../../Components/HeroCarousel/HeroCarousel";
+import MovieRowSlider from "../../Components/MovieRowSlider/MovieRowSlider";
 
 const homePage = () => {
   return (
     <div
       style={{
-        height: "300vh",
         backgroundColor: "#020916",
-        paddingTop: "30px",
+        padding: "2rem 0",
       }}
     >
       <HeroCarousel />
+      <MovieRowSlider title={"This Week"} />
+      <MovieRowSlider title={"Action"} />
     </div>
   );
 };

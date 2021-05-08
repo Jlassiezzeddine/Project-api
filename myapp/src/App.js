@@ -6,15 +6,21 @@ import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
 import Reservations from "./pages/Reservations/Reservations";
 import Favorites from "./pages/Favorites/Favorites";
+
 import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
 import MoviePage from "./pages/DashboardTheater/AddMovie";
+
 function App() {
-  const [auth, setAuth] = React.useState(false);
+  //Use isAuth for the global authentication state (or Redux)
+  const [isAuth, setIsAuth] = React.useState(false);
+  //******************************************************** */
+
   const [location, setLocation] = React.useState("Tunis");
   return (
     <>
+
   <ThemeProvider theme={theme}>
   <Navigation
         auth={auth}
@@ -24,6 +30,7 @@ function App() {
       />
   </ThemeProvider>
    
+
 
       <Switch>
         <Route exact path="/" component={homePage} />

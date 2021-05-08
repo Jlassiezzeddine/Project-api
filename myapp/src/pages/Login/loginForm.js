@@ -71,8 +71,7 @@ const LogInForm = () => {
   return (
     <div className={classes.containerClass}>
       {loggedIn&& <Redirect to = '/' />}
-      {console.log(loggedIn)}
-      
+
      
       <Typography className={classes.typographyStyle} variant='h4'>Sign In </Typography>
 
